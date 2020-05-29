@@ -23,8 +23,8 @@ public:
     void HeapUp();
     void HeapDown();
     void Swap(int indexA, int indexB);
-    
-    
+    ~Heap();
+    void DeleteHeap();
 private:
     int heapCap;
     int heapSize;

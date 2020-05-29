@@ -16,12 +16,13 @@ void MainMenu() {
     do {
         cout << "Main Menu\n 1) Print inventory & orders on hand details\n 2) Recieve new order\n 3) Close day\n 4) Exit Program\n Choice: ";
         cin >> userChoice;
+        cout << "\n";
         
         switch (userChoice) {
             case 1:
                 //1) Display details of inventory and outstanding orders on hand
                 warehouse.PrintInventory();
-                warehouse.PrintOrders();
+                warehouse.PrintOrders(false);
                 break;
             case 2:
                 //2) Recieve new order
@@ -30,7 +31,7 @@ void MainMenu() {
                 break;
                 
             case 3:
-                
+                warehouse.PrintOrders(true);
                 
                 /*3) Close day and process orders recieved on that day
                 - show the total number of orders processed along with their total cost to the warehouse, total profit, and total cost to the customers

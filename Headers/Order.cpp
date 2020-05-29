@@ -2,14 +2,19 @@
 
 Order::Order(){};
 
-Order::Order(int newItem, int newShipping) {
-    SetOrder(newItem, newShipping);
+Order::Order(int newItem, int newShipping, int newShipped, double newCost, double newProfit, double newTotal, double newMarkUpTot) {
+    SetOrder(newItem, newShipping, newShipped, newCost, newProfit, newTotal, newMarkUpTot);
 }
 
-void Order::SetOrder(int items, int shipping) {
+void Order::SetOrder(int items, int shipping, int shipped, double cost, double profit, double total, double markUp) {
     orderID = GenerateOrderID();
     qty = items;
     shippingType = shipping;
+    totalShipped = shipped;
+    warehouseCost = cost;
+    warehouseProfit = profit;
+    customerTotal = total;
+    markUpTotal = markUp;
 }
 
 int Order::GetOrderID() const {
@@ -24,9 +29,24 @@ int Order::GetShippingType() const {
     return shippingType;
 }
 
-void Order::SetOrderPrice(int price) {
-    totalPrice = price;
-    
+int Order::GetTotalShip() const {
+    return totalShipped;
+}
+
+double Order::GetCost() const {
+    return warehouseCost;
+}
+
+double Order::GetProfit() const {
+    return warehouseProfit;
+}
+
+double Order::GetTotal() const {
+    return customerTotal;
+}
+
+double Order::GetMarkUpTot() const {
+    return markUpTotal;
 }
 
 int Order::GenerateOrderID() {

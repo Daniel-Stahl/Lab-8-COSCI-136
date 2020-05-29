@@ -129,3 +129,11 @@ void Heap::Swap(int indexA, int indexB) {
     heapArray[indexA] = heapArray[indexB];
     heapArray[indexB] = temp;
 }
+
+Heap::~Heap() {
+    DeleteHeap();
+}
+
+void Heap::DeleteHeap() {
+    delete[] heapArray;
+}

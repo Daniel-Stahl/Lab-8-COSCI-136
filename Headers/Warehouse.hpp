@@ -6,6 +6,8 @@ class Warehouse {
 public:
     Warehouse();
     void AddOrder();
+    void PrintInventory();
+    void PrintOrders();
     
 private:
     Heap heap;

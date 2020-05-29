@@ -1,19 +1,54 @@
 #include "Warehouse.hpp"
+enum ShippingStatus{ExtremeRush = 0, ExpediteRush = 1, Standard = 2};
 
 Warehouse::Warehouse() {
     inStock = 500;
 }
 
 void Warehouse::AddOrder() {
-    Order newOrder1;
-    newOrder1.SetOrder(16, 4, 1);
-    heap.Enqueue(newOrder1);
+    Order newOrder;
+    int items;
+    int shippingStatus;
     
-    Order newOrder2;
-    newOrder2.SetOrder(12, 5, 0);
-    heap.Enqueue(newOrder2);
+    cout << "How many widgets? ";
+    cin >> items;
     
-    Order newOrder3;
-    newOrder3.SetOrder(32, 4, 2);
-    heap.Enqueue(newOrder3);
+    cout << "Which shipping do you want to use? ExtremeRush = 0, ExpediteRush = 1, Standard = 2\n Shipping: ";
+    cin >> shippingStatus;
+    
+    newOrder.SetOrder(items, shippingStatus);
+    heap.Enqueue(newOrder);
+}
+
+void Warehouse::PrintInventory() {
+    cout << inStock << " Widgets remain in stock\n";
+}
+
+void Warehouse::PrintOrders() {
+    Heap tempHeap = heap;
+    Order order = tempHeap.Dequeue();
+    int hSize = tempHeap.ReturnHeapSize();
+    
+    int index = 0;
+    
+    while (index <= hSize) {
+        cout << "\nOrder ID: " << order.GetOrderID();
+        
+        if (order.GetShippingType() == ExtremeRush) {
+            cout << " Shipping: ExtremeRush\n";
+        }
+        
+        if (order.GetShippingType() == ExpediteRush) {
+            cout << " Shipping: ExpediteRush\n";
+        }
+        
+        if (order.GetShippingType() == Standard) {
+            cout <<  " Shipping: Standard\n";
+        }
+        
+        order = tempHeap.Dequeue();
+
+        index++;
+    }
+    
 }

@@ -2,14 +2,13 @@
 
 Order::Order(){};
 
-Order::Order(int newItem, int newPrice, int newShipping) {
-    SetOrder(newItem, newPrice, newShipping);
+Order::Order(int newItem, int newShipping) {
+    SetOrder(newItem, newShipping);
 }
 
-void Order::SetOrder(int items, int price, int shipping) {
+void Order::SetOrder(int items, int shipping) {
     orderID = GenerateOrderID();
     qty = items;
-    totalPrice = price;
     shippingType = shipping;
 }
 
@@ -23,6 +22,11 @@ int Order::GetOrderQTY() const {
 
 int Order::GetShippingType() const {
     return shippingType;
+}
+
+void Order::SetOrderPrice(int price) {
+    totalPrice = price;
+    
 }
 
 int Order::GenerateOrderID() {

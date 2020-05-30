@@ -64,12 +64,13 @@ void Warehouse::PrintInventory() {
 }
 
 void Warehouse::PrintOrders(bool printProcessed) {
-    Heap tempHeap = heap;
-    Order order = tempHeap.Dequeue();
-    int hSize = tempHeap.ReturnHeapSize();
+    Order order;
+    Heap tempHeap;
+    int hSize;
     int index = 0;
     int tempPerMarkup = 0;
     int tempTotalShip = 0;
+    int tempTotalOrders = 0;
     double tempWarehouseCost = 0;
     double tempWarehouseProfit = 0;
     double tempCustomerTotal = 0;
@@ -79,12 +80,19 @@ void Warehouse::PrintOrders(bool printProcessed) {
     string shippingStat;
     
     if (printProcessed) {
+        order = heap.Dequeue();
+        hSize = heap.ReturnHeapSize();
+        tempTotalOrders = totalOrders;
         tempWarehouseCost = warehouseCost;
         tempWarehouseProfit = warehouseProfit;
         tempCustomerTotal = customerTotal;
+    } else {
+        tempHeap = heap;
+        order = tempHeap.Dequeue();
+        hSize = tempHeap.ReturnHeapSize();
     }
     
-    cout << "Orders Processed: " << totalOrders << "\n" << fixed << setprecision(2) << "Warehouse cost: " << tempWarehouseCost << "\n" << "Customer cost: " << tempCustomerTotal << "\n" << "Profit: " << tempWarehouseProfit << "\n";
+    cout << "\nOrders Processed: " << tempTotalOrders << "\n" << fixed << setprecision(2) << "Warehouse cost: " << tempWarehouseCost << "\n" << "Customer cost: " << tempCustomerTotal << "\n" << "Profit: " << tempWarehouseProfit << "\n";
     
     cout << "\nOrder ID" << setw(20) << "Shipping Status" << setw(8) << "QTY" << setw(15) << "QTY Shipped" << setw(10) << "Markup" << setw(20) << "Warehouse cost" << setw(15) << "Total Markup" << setw(20) << "Warehouse Profit\n";
     
@@ -101,8 +109,12 @@ void Warehouse::PrintOrders(bool printProcessed) {
         
         cout << setw(8) << order.GetOrderID() << setw(20) << shippingStat << setw(8) << order.GetOrderQTY() << setw(15) << tempTotalShip << setw(10) << tempPerMarkup << setw(20) << fixed << setprecision(2) << tempCost << setw(15) << tempMarkup << setw(19) << tempProfit << "\n";
         
-        order = tempHeap.Dequeue();
-
+        if (printProcessed) {
+            order = heap.Dequeue();
+        } else {
+            order = tempHeap.Dequeue();
+        }
+        
         index++;
     }
     
